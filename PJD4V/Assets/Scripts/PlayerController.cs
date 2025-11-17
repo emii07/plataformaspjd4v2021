@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         _dead = false;
         _active = true;
         
-        _rigidbody2D.velocity = Vector2.zero;
+        _rigidbody2D.linearVelocity = Vector2.zero;
         _playerMovement = Vector2.zero;
         _animator.Play("Idle");
         
@@ -225,7 +225,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         {
             if (!_onKnockback)
             {
-                _rigidbody2D.velocity = new Vector2(_playerMovement.x * velocidade * Time.fixedDeltaTime, _rigidbody2D.velocity.y);
+                _rigidbody2D.linearVelocity = new Vector2(_playerMovement.x * velocidade * Time.fixedDeltaTime, _rigidbody2D.linearVelocity.y);
                     
                 if(_isMovingRight && _playerMovement.x < 0) Flip();
                 if(!_isMovingRight && _playerMovement.x > 0) Flip();
@@ -281,7 +281,7 @@ public class PlayerController : MonoBehaviour, IDamageable
                             _canJetpack = true;
                         } else if (_canJetpack)
                         {
-                            _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, 0);
+                            _rigidbody2D.linearVelocity = new Vector2(_rigidbody2D.linearVelocity.x, 0);
                             _canJetpack = false;
                             _isJetpacking = true;
                             jetEffect.SetActive(true);
@@ -338,7 +338,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         {
             //_rigidbody2D.AddForce(Vector2.up * jumpForce);
 
-            _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, jumpForce * Time.fixedDeltaTime);
+            _rigidbody2D.linearVelocity = new Vector2(_rigidbody2D.linearVelocity.x, jumpForce * Time.fixedDeltaTime);
             
             if(Time.time - _startJumpTime > jumpTime) _doJump = false;
         }
@@ -407,7 +407,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         _animator.SetFloat("Speed", Mathf.Abs(_playerMovement.x));
         _animator.SetBool("IsGrounded", _isGrounded);
-        _animator.SetFloat("VertSpeed", _rigidbody2D.velocity.y);
+        _animator.SetFloat("VertSpeed", _rigidbody2D.linearVelocity.y);
     }
 
     private void KillPlayer()
@@ -420,7 +420,7 @@ public class PlayerController : MonoBehaviour, IDamageable
             _dead = true;
 
             //_rigidbody2D.bodyType = RigidbodyType2D.Static;
-            _rigidbody2D.velocity = new Vector2(0, _rigidbody2D.velocity.y);
+            _rigidbody2D.linearVelocity = new Vector2(0, _rigidbody2D.linearVelocity.y);
         
             _animator.SetBool("Active", _active);
             _animator.Play("Dead");
@@ -441,7 +441,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         _active = false;
         
-        _rigidbody2D.velocity = Vector2.zero;
+        _rigidbody2D.linearVelocity = Vector2.zero;
         _playerMovement = Vector2.zero;
         
         _animator.SetBool("Active", _active);

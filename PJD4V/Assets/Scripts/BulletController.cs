@@ -28,7 +28,7 @@ public class BulletController : MonoBehaviour
 
     private void MoveBullet()
     {
-        _rigidbody2D.velocity = transform.localScale.x * transform.right * moveSpeed * Time.fixedDeltaTime;
+        _rigidbody2D.linearVelocity = transform.localScale.x * transform.right * moveSpeed * Time.fixedDeltaTime;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
